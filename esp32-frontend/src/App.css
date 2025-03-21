@@ -40,3 +40,37 @@
 .read-the-docs {
   color: #888;
 }
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.control-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 20px;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-button:active {
+  background-color: #45a049;
+}
