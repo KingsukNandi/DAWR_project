@@ -1,4 +1,4 @@
-# DAWR Project
+# DAWR Project : Smart Wirelessly Controlled Robot
 
 This project consists of three main components:
 
@@ -26,23 +26,27 @@ This project consists of three main components:
 
 1. Navigate to the `esp32-backend` directory:
    ```sh
-   cd c:\Users\Kingsuk Nandi\Documents\my_workspace\DAWR_project\esp32-backend
+   cd ./DAWR_project/esp32-backend
    ```
 2. Install the dependencies:
    ```sh
    npm install
    ```
-3. Update the `esp32Ip` variable in `server.js` with the IP address of your ESP32.
+3. Update the `esp32Ip` variable in `index.js` with the IP address of your ESP32.
 4. Start the backend server:
    ```sh
    npm start
+   ```
+   or
+   ```sh
+   node index.js
    ```
 
 ### 3. Frontend Application
 
 1. Navigate to the `esp32-frontend` directory:
    ```sh
-   cd c:\Users\Kingsuk Nandi\Documents\my_workspace\DAWR_project\esp32-frontend
+   cd ./DAWR_project/esp32-frontend
    ```
 2. Install the dependencies:
    ```sh
@@ -58,8 +62,8 @@ This project consists of three main components:
 1. Ensure the ESP32 is connected to your Wi-Fi network.
 2. Start the backend server.
 3. Start the frontend application.
-4. Open your browser and navigate to `http://localhost:3000`.
-5. Use the buttons on the web page to control the LED on the ESP32.
+4. Open your browser and navigate to `http://localhost:5173`.
+5. Use the buttons on the web page to control the ESP32.
 
 ## Troubleshooting
 
