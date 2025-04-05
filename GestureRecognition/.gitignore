@@ -1,0 +1,24 @@
+# Ignore Python virtual environment
+venv/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Ignore logs and temp files
+*.log
+*.tmp
+*.swp
+.DS_Store
+
+# Ignore dependencies (node_modules for backend)
+node_modules/
+package-lock.json
+
+# Ignore VS Code workspace settings (if using VS Code)
+.vscode/
+
+# Ignore compiled binary files (if any)
+*.exe
+*.out
+*.bin
