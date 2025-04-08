@@ -1,72 +1,196 @@
-# DAWR Project : Smart Wirelessly Controlled Robot
+# DAWR Project: Smart Wirelessly Controlled Robot
 
-This project consists of three main components:
+A multi-interface robot control project that allows you to control a robot car through web interface, gesture recognition, and voice commands.
 
-1. **ESP32 Machine Code**: Code to run on the ESP32 microcontroller.
-2. **Backend Server**: Node.js server to communicate with the ESP32.
-3. **Frontend Application**: React application to control the LED on the ESP32.
+## Project Components
+
+1. **ESP32 Machine Code**: Arduino code for ESP32 controlling robot car motors
+2. **Backend Server**: Node.js server that acts as middleware between interfaces and ESP32
+3. **Frontend Application**: React-based web interface for keyboard/touch controls
+4. **Gesture Recognition**: Python-based hand gesture recognition system
+5. **Speech Recognition**: Python-based voice command system
 
 ## Prerequisites
 
-- Node.js and npm installed on your machine.
-- Arduino IDE for uploading code to the ESP32.
-- ESP32 microcontroller.
+- Node.js (v16+) and npm
+- Python (3.8+)
+- Arduino IDE
+- ESP32 microcontroller
+- L298N motor driver
+- DC motors (2x)
+- Webcam (for gesture recognition)
+- Microphone (for voice commands)
 
-## Setup Instructions
+## Hardware Setup
 
-### 1. ESP32 Machine Code
+1. **ESP32 and Motor Driver Connection**:
+   - Connect Motor A pins:
+     - Motor A1 -> GPIO26
+     - Motor A2 -> GPIO27
+     - Enable A -> GPIO14
+   - Connect Motor B pins:
+     - Motor B1 -> GPIO25
+     - Motor B2 -> GPIO33
+     - Enable B -> GPIO32
 
-1. Open the `esp32-machine-code.ino` file in the Arduino IDE.
-2. Update the `ssid` and `password` variables with your Wi-Fi credentials.
-3. Connect your ESP32 to your computer.
-4. Select the appropriate board and port in the Arduino IDE.
-5. Upload the code to the ESP32.
+## Software Setup
 
-### 2. Backend Server
+### 1. ESP32 Configuration
 
-1. Navigate to the `esp32-backend` directory:
-   ```sh
-   cd ./DAWR_project/esp32-backend
+1. Open `esp32-machine-code/esp32-machine-code.ino` in Arduino IDE
+2. Update WiFi credentials:
+   ```cpp
+   const char* ssid = "your-wifi-ssid";
+   const char* password = "your-wifi-password";
    ```
-2. Install the dependencies:
+3. Select ESP32 board in Arduino IDE
+4. Upload code to ESP32
+5. Note down the IP address from Serial Monitor
+
+### 2. Backend Server Setup
+
+1. Navigate to backend directory:
+   ```sh
+   cd esp32-backend
+   ```
+2. Install dependencies:
    ```sh
    npm install
    ```
-3. Update the `esp32Ip` variable in `index.js` with the IP address of your ESP32.
-4. Start the backend server:
+3. Update ESP32 IP in `index.js`:
+   ```js
+   const esp32Ip = "your-esp32-ip";
+   ```
+4. Start server:
    ```sh
    npm start
    ```
-   or
-   ```sh
-   node index.js
-   ```
 
-### 3. Frontend Application
+### 3. Frontend Application Setup
 
-1. Navigate to the `esp32-frontend` directory:
+1. Navigate to frontend directory:
    ```sh
-   cd ./DAWR_project/esp32-frontend
+   cd esp32-frontend
    ```
-2. Install the dependencies:
+2. Install dependencies:
    ```sh
    npm install
    ```
-3. Start the development server:
+3. Start development server:
    ```sh
-   npm run dev
+   npm run dev --host
    ```
 
-## Usage
+### 4. Gesture Recognition Setup
 
-1. Ensure the ESP32 is connected to your Wi-Fi network.
-2. Start the backend server.
-3. Start the frontend application.
-4. Open your browser and navigate to `http://localhost:5173`.
-5. Use the buttons on the web page to control the ESP32.
+1. Navigate to gesture recognition directory:
+   ```sh
+   cd GestureRecognition
+   ```
+2. Create and activate virtual environment:
+   ```sh
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. Run gesture recognition:
+   ```sh
+   python gesture_control.py
+   ```
+
+### 5. Voice Control Setup
+
+1. Navigate to speech recognition directory:
+   ```sh
+   cd speech-recognition
+   ```
+2. Create and activate virtual environment:
+   ```sh
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. Create `.env` file and add Groq API key:
+   ```
+   GROQ_API_KEY=your-groq-api-key
+   ```
+5. Run voice control:
+   ```sh
+   python script.py
+   ```
+
+## Usage Instructions
+
+### Web Interface Control
+
+- Access web interface at `http://localhost:5173`
+- Use WASD keys or arrow keys on desktop
+- Use on-screen buttons on mobile devices
+- Controls:
+  - W/↑: Forward
+  - S/↓: Backward
+  - A/←: Left
+  - D/→: Right
+  - Release key/button: Stop
+
+### Gesture Control
+
+- Hold hand in front of webcam
+- Gestures:
+  - All fingers up: Forward
+  - Fist closed: Backward
+  - Index finger up: Left
+  - Pinky finger up: Right
+  - Other gestures: Stop
+
+### Voice Control
+
+- Supported voice commands:
+  - "Move forward for X seconds"
+  - "Turn left/right"
+  - "Stop"
+  - "Move backward"
 
 ## Troubleshooting
 
-- Ensure the ESP32 is connected to the same network as your computer.
-- Check the serial monitor in the Arduino IDE for any connection issues.
-- Verify the IP address of the ESP32 and update it in the backend server code if necessary.
+1. **ESP32 Connection Issues**:
+
+   - Verify WiFi credentials
+   - Check if ESP32 and computer are on same network
+   - Confirm ESP32 IP address in Serial Monitor
+   - Check if backend server IP is correctly configured
+
+2. **Backend Server Issues**:
+
+   - Verify node_modules installation
+   - Check if port 8080 is available
+   - Ensure ESP32 IP is correctly set
+
+3. **Gesture Recognition Issues**:
+
+   - Check webcam connection
+   - Verify Python dependencies installation
+   - Ensure adequate lighting for hand detection
+
+4. **Voice Control Issues**:
+   - Check microphone connection
+   - Verify Groq API key is set correctly
+   - Ensure Python dependencies installation
+
+## Contributing
+
+1. Fork the repository
+2. Create feature branch
+3. Commit changes
+4. Push to branch
+5. Create Pull Request
+
+## License
+
+This project is licensed under the ISC License.
