@@ -12,7 +12,7 @@ load_dotenv()  # Load API key from .env
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # ESP32 server details
-ESP32_IP = "192.168.168.60"
+ESP32_IP = "192.168.52.60"
 ESP32_URL = f"http://{ESP32_IP}/control-car"
 
 # Function to send commands to ESP32

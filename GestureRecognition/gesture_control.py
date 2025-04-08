@@ -2,6 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import requests  # Import requests to send HTTP requests
+import threading
 
 # Initialize Mediapipe Hand Module
 mp_hands = mp.solutions.hands
@@ -36,7 +37,7 @@ def get_gesture(landmarks):
     elif pinky_finger_up and not index_finger_up and not middle_finger_up and not ring_finger_up:
         return "D"  # Move Right
     else:
-        return None  # No Stop condition (one gesture must always be detected)
+        return "STOP"  # No Stop condition (one gesture must always be detected)
 
 # Function to send request to backend
 def send_command(direction):
@@ -70,8 +71,12 @@ while (cap.isOpened() and not window_closed):
             
             # Detect gesture
             gesture = get_gesture(landmarks)  
+            
+            
+            # Send command to backend in a separate thread
             if gesture:
-                send_command(gesture)  # ✅ Send detected gesture to backend            
+                thread = threading.Thread(target=send_command, args=(gesture,))
+                thread.start()  # Start the thread to send command       
             print(f"Detected: {gesture}")
 
             # Display text on screen

@@ -11,7 +11,7 @@ app.post("/control-car", async (req, res) => {
   const { direction } = req.body; // Get the direction (W, A, S, D, STOP)
   console.log(`Received direction: ${direction}`);
 
-  const esp32Ip = "192.168.168.60"; // Replace with your ESP32's IP
+  const esp32Ip = "192.168.52.60"; // Replace with your ESP32's IP
   const url = `http://${esp32Ip}/control-car`;
 
   try {
@@ -22,6 +22,7 @@ app.post("/control-car", async (req, res) => {
       body: JSON.stringify({ direction }), // Send the direction to the ESP32
     });
     const data = await response.text();
+    console.log(data);
     console.log(`ESP32 response: ${data}`);
     res.send(`Direction: ${direction}`);
   } catch (error) {
